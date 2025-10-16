@@ -169,6 +169,49 @@ window.onload = function () {
             }
         } setInterval(shoot, 200);
 
+        canvas.addEventListener("click", function () {
+        });
+
+        function collision(a, b) {
+            return a.x < b.x + b.width &&
+                a.x + a.width > b.x &&
+                a.y < b.y + b.height &&
+                a.y + a.height > b.y;
+        }
+        c.font = "20px Arial";
+
+        function stoperror() {
+            return true;
+        }
+        window.onerror = stoperror;
+        function animate() {
+            requestAnimationFrame(animate);
+            c.clearRect(0, 0, innerWidth, innerHeight);
+            c.fillStyle = "white";
+            c.fillText("Health: " + health, 10, 30);
+            c.fillText("Score: " + score, innerWidth - 100, 30);
+        }
+
+        _player.update();
+        for (var i = 0; i < _bullets.length; i++) {
+            _bullets[i].update();
+            if (_bullets[i].y < 0) {
+                _bullets.splice(i, 1);
+            }
+        }
+
+        for (var k = 0; k < _enemies.length; k++) {
+            _enemies[k].update();
+            if (_enemies[k].y > innerHeight) {
+                _enemies.splice(k, 1);
+                health -= 10;
+                if (health <= 0) {
+                    alert("Game Over!\n Your score is " + score);
+                    startGame();
+                }
+            }
+        }
+
     }
 
 }
