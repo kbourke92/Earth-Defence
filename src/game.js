@@ -59,7 +59,7 @@ function spawnEnemies() {
         enemies.push(new Enemy(x, y, enemyWidth, enemyHeight, speed, c, enemyImg));
     }
 }
-setInterval(spawnEnemies, 1250);
+setInterval(spawnEnemies, 750);
 
 function spawnHealthkits() {
     const x = Math.random() * (innerWidth - healthkitWidth);
@@ -67,7 +67,7 @@ function spawnHealthkits() {
     const speed = 1 + Math.random() * 2.8;
     healthkits.push(new Healthkit(x, y, healthkitWidth, healthkitHeight, speed, c, healthkitImg));
 }
-setInterval(spawnHealthkits, 13000);
+setInterval(spawnHealthkits, 900);
 
 function shoot() {
     const x = mouse.x - bulletWidth / 2;
@@ -104,7 +104,7 @@ function animate() {
         enemies[i].update();
         if (enemies[i].y > innerHeight) {
             enemies.splice(i, 1);
-            health -= 10;
+            health -= 5;
             if (health <= 0) {
                 alert('Game Over!\nYour score is ' + score);
                 enemies = [];
