@@ -1,217 +1,224 @@
 window.onload = function () {
-    var c = document.getElementById("Canvas");
-    var canvas = this.document.querySelector("canvas");
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
-    c = c.getContext("2d");
+    // Setup canvas and context
+    const canvas = document.getElementById("Canvas") || document.querySelector("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const c = canvas.getContext("2d");
 
-    function startGame() {
-        mouse = {
-            x: innerWidth / 2,
-            y: innerHeight - 33
+    // Game state
+    let mouse = { x: innerWidth / 2, y: innerHeight - 33 };
+    let score = 0;
+    let health = 100;
+
+    // Sizes and resources
+    const playerWidth = 33;
+    const playerHeight = 33;
+
+    const bulletWidth = 7;
+    const bulletHeight = 9;
+    const bulletSpeed = 10;
+
+    const enemyWidth = 33;
+    const enemyHeight = 33;
+
+    const healthkitWidth = 33;
+    const healthkitHeight = 33;
+
+    const playerImg = new Image();
+    playerImg.src = "spaceship.png";
+    const enemyImg = new Image();
+    enemyImg.src = "alien.png";
+    const healthkitImg = new Image();
+    healthkitImg.src = "Healthkit.png";
+
+    // Arrays
+    let bullets = [];
+    let enemies = [];
+    let healthkits = [];
+
+    // Input
+    canvas.addEventListener("mousemove", function (event) {
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+    });
+
+    canvas.addEventListener("touchmove", function (event) {
+        const rect = canvas.getBoundingClientRect();
+        const t = event.changedTouches[0];
+        const touchX = Math.round(t.clientX - rect.left);
+        const touchY = Math.round(t.clientY - rect.top);
+        event.preventDefault();
+        mouse.x = touchX;
+        mouse.y = touchY;
+    }, { passive: false });
+
+    // Constructors
+    function Player(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+        this.draw = function () {
+            c.drawImage(playerImg, this.x, this.y, this.width, this.height);
         };
 
-        touch = {
-            x: innerWidth / 2,
-            y: innerHeight - 33
+        this.update = function () {
+            // center player on mouse
+            this.x = mouse.x - this.width / 2;
+            this.y = mouse.y - this.height / 2;
+            this.draw();
         };
+    }
 
-        canvas.addEventListener("mousemove", function (event) {
-            mouse.x = event.clientX;
-            mouse.y = event.clientY;
-        });
+    function Bullet(x, y, width, height, speed) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
 
-        canvas.addEventListener("touchmove", function (event) {
-            var rect = canvas.getBoundingClientRect();
-            var root = document.documentElement;
-            var touch = event.changedTouches[0];
-            var touchX = parseInt(touch.clientX);
-            var touchY = parseInt(touch.clientY) - rect.top - root.scrollTop;
-            event.preventDefault();
-            mouse.x = touchX;
-            mouse.y = touchY;
-        });
-        var player_width = 33;
-        var player_height = 33;
-        var img = new Image();
-        var score = 0;
-        var health = 100;
-        playerImg.src = "spaceship.png";
-
-        var_bullets = [];
-        var_bullet_width = 7;
-        var_bullet_height = 9;
-        var_bullet_speed = 10;
-
-        var_enemies = [];
-        var_enemyImg = new Image();
-        enemyImg.src = "alien.png";
-        var_enemy_width = 33;
-        var_enemy_height = 33;
-        var_enemy_speed = 1;
-        var_enemy_spawn_rate = 30;
-        var_enemy_spawn_timer = 0;
-
-        var_healthkits = [];
-        var_healthkitImg = new Image();
-        healthkitImg.src = "Healthkit.png";
-        var_healthkit_width = 33;
-        var_healthkit_height = 33;
-        var_healthkit_speed = 5;
-
-        function Player(x, y, width, height, speed) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.speed = speed
-
-            this.draw = function () {
-                c.beginPath();
-                c.drawImage(enemyImg, this.x, this.y);
-            };
-
-            this.update = function () {
-                this.y = this.speed;
-                this.draw();
-            };
-        }
-
-        function Bullet(x, y, width, height, speed) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.speed = speed
-
-            this.draw = function () {
-                c.beginPath();
-                c.rect(this.x, this.y, this.width, this.height);
-                c.fillStyle = "white";
-                c.fill();
-            };
-
-            this.update = function () {
-                this.y -= this.speed;
-                this.draw();
-            };
-        }
-
-        function Enemy(x, y, width, height, speed) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.speed = speed;
-
-            this.draw = function () {
-                c.beginPath();
-                c.drawImage(enemyImg, this.x, this.y);
-            };
-
-            this.update = function () {
-                this.y += this.speed;
-                this.draw();
-            }
-
-        }
-
-        function Healthkit(x, y, width, height, speed) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.speed = speed;
-
-            this.draw = function () {
-                c.beginPath();
-                c.drawImage(healthkitImg, this.x, this.y);
-            };
-
-            this.update = function () {
-                this.y += this.speed;
-                this.draw();
-            }
-        }
-
-        var_player = new Player(mouse.x, mouse.y, player_width, player_height);
-        function drawEnemies() {
-            for (var _ = 0; _ < 4; _++) {
-                varx = Math.random() * (innerWidth - enemy_width);
-                var y = -enemy_height;
-                var width = enemy_width;
-                var height = enemy_height;
-                var speed = Math.random() * 2;
-                var_enemy = new Enemy(x, y, width, height, speed);
-                enemies.push(_enemy);
-            }
-
-        } setInterval(drawEnemies, 1250);
-
-        function drawHealthkits() {
-            for (var _ = 0; _ < 1; _++) {
-                varx = Math.random() * (innerWidth - enemy_width);
-                var y = -enemy_height;
-                var width = healthkit_width;
-                var height = healthkit_height;
-                var speed = Math.random() * 2.8;
-                var_healthkit = new Healthkit(x, y, width, height, speed);
-                var_healthkits.push(_healthkit);
-            }
-        } setInterval(drawHealthkits, 13000);
-
-        function shoot() {
-            for (var _ = 0; _ < 1; _++) {
-                var x = mouse.x - var_bullet_width / 2;
-                var y = mouse.y - player_height / 2;
-                var_bullet = new Bullet(x, y, bullet_width, bullet_height, bullet_speed);
-                _bullets.Push(_bullet);
-            }
-        } setInterval(shoot, 200);
-
-        canvas.addEventListener("click", function () {
-        });
-
-        function collision(a, b) {
-            return a.x < b.x + b.width &&
-                a.x + a.width > b.x &&
-                a.y < b.y + b.height &&
-                a.y + a.height > b.y;
-        }
-        c.font = "20px Arial";
-
-        function stoperror() {
-            return true;
-        }
-        window.onerror = stoperror;
-        function animate() {
-            requestAnimationFrame(animate);
-            c.clearRect(0, 0, innerWidth, innerHeight);
+        this.draw = function () {
             c.fillStyle = "white";
-            c.fillText("Health: " + health, 10, 30);
-            c.fillText("Score: " + score, innerWidth - 100, 30);
+            c.fillRect(this.x, this.y, this.width, this.height);
+        };
+
+        this.update = function () {
+            this.y -= this.speed;
+            this.draw();
+        };
+    }
+
+    function Enemy(x, y, width, height, speed) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+
+        this.draw = function () {
+            c.drawImage(enemyImg, this.x, this.y, this.width, this.height);
+        };
+
+        this.update = function () {
+            this.y += this.speed;
+            this.draw();
+        };
+    }
+
+    function Healthkit(x, y, width, height, speed) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+
+        this.draw = function () {
+            c.drawImage(healthkitImg, this.x, this.y, this.width, this.height);
+        };
+
+        this.update = function () {
+            this.y += this.speed;
+            this.draw();
+        };
+    }
+
+    const player = new Player(mouse.x, mouse.y, playerWidth, playerHeight);
+
+    function spawnEnemies() {
+        for (let i = 0; i < 4; i++) {
+            const x = Math.random() * (innerWidth - enemyWidth);
+            const y = -enemyHeight;
+            const speed = 1 + Math.random() * 2;
+            enemies.push(new Enemy(x, y, enemyWidth, enemyHeight, speed));
+        }
+    }
+    setInterval(spawnEnemies, 1250);
+
+    function spawnHealthkits() {
+        const x = Math.random() * (innerWidth - healthkitWidth);
+        const y = -healthkitHeight;
+        const speed = 1 + Math.random() * 2.8;
+        healthkits.push(new Healthkit(x, y, healthkitWidth, healthkitHeight, speed));
+    }
+    setInterval(spawnHealthkits, 13000);
+
+    function shoot() {
+        const x = mouse.x - bulletWidth / 2;
+        const y = mouse.y - playerHeight / 2;
+        bullets.push(new Bullet(x, y, bulletWidth, bulletHeight, bulletSpeed));
+    }
+    setInterval(shoot, 200);
+
+    function collision(a, b) {
+        return a.x < b.x + b.width &&
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y + a.height > b.y;
+    }
+
+    c.font = "20px Arial";
+
+    function animate() {
+        requestAnimationFrame(animate);
+        c.clearRect(0, 0, innerWidth, innerHeight);
+
+        // HUD
+        c.fillStyle = "white";
+        c.fillText("Health: " + health, 10, 30);
+        c.fillText("Score: " + score, innerWidth - 140, 30);
+
+        player.update();
+
+        // bullets
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            bullets[i].update();
+            if (bullets[i].y + bullets[i].height < 0) bullets.splice(i, 1);
         }
 
-        _player.update();
-        for (var i = 0; i < _bullets.length; i++) {
-            _bullets[i].update();
-            if (_bullets[i].y < 0) {
-                _bullets.splice(i, 1);
-            }
-        }
-
-        for (var k = 0; k < _enemies.length; k++) {
-            _enemies[k].update();
-            if (_enemies[k].y > innerHeight) {
-                _enemies.splice(k, 1);
+        // enemies
+        for (let i = enemies.length - 1; i >= 0; i--) {
+            enemies[i].update();
+            if (enemies[i].y > innerHeight) {
+                enemies.splice(i, 1);
                 health -= 10;
                 if (health <= 0) {
-                    alert("Game Over!\n Your score is " + score);
-                    startGame();
+                    alert("Game Over!\nYour score is " + score);
+                    // reset basic state
+                    enemies = [];
+                    bullets = [];
+                    health = 100;
+                    score = 0;
                 }
             }
         }
 
+        // bullets vs enemies
+        for (let i = enemies.length - 1; i >= 0; i--) {
+            for (let j = bullets.length - 1; j >= 0; j--) {
+                if (collision(enemies[i], bullets[j])) {
+                    enemies.splice(i, 1);
+                    bullets.splice(j, 1);
+                    score++;
+                    break;
+                }
+            }
+        }
+
+        // healthkits update & pickup
+        for (let i = healthkits.length - 1; i >= 0; i--) {
+            healthkits[i].update();
+            if (healthkits[i].y > innerHeight) {
+                healthkits.splice(i, 1);
+                continue;
+            }
+            // pickup by player
+            if (collision(healthkits[i], player)) {
+                health = Math.min(100, health + 20);
+                healthkits.splice(i, 1);
+            }
+        }
     }
 
-}
+    animate();
+};
