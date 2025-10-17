@@ -4,17 +4,19 @@ body {
     color: #eee;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Main container to center Landing Page content */
+/* Main container to center Landing Page */
 .main-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 100vh;
     width: 100%;
+    min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
@@ -22,47 +24,27 @@ body {
 
 /* Landing Page Styles */
 .landing-container {
-    background: rgba(10, 10, 30, 0.85);
-    padding: 40px 50px;
-    border-radius: 15px;
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    max-width: 600px;
+    background: rgba(10, 10, 30, 0.85);
+    padding: 30px 40px;
+    border-radius: 15px;
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-    text-align: center;
+    box-sizing: border-box;
+    height: auto;
+    max-height: 90vh;
 }
 
-.game-title {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px #00ffff;
+/* All children except start button have bottom margin for spacing */
+.landing-container> :not(.start-button) {
+    margin-bottom: 20px;
 }
 
-.blurb {
-    font-size: 1.25rem;
-    margin-bottom: 30px;
-    line-height: 1.5;
-    color: #cceeff;
-}
-
-.instructions {
-    text-align: left;
-    margin-bottom: 35px;
-    color: #a0d8f7;
-}
-
-.instructions h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    text-shadow: 0 0 5px #00cccc;
-}
-
-.instructions ul {
-    list-style: inside disc;
-    font-size: 1.1rem;
-    line-height: 1.5;
-}
-
+/* Push start button to bottom */
 .start-button {
+    margin-top: auto;
     background-color: #00d4ff;
     border: none;
     padding: 15px 40px;
@@ -80,12 +62,36 @@ body {
     transform: scale(1.1);
 }
 
-/* Heading */
-.heading {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #1a1a1a;
+/* Game Title */
+.game-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Blurb */
+.blurb {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.4;
+    color: #cceeff;
+}
+
+/* Instructions */
+.instructions {
+    text-align: left;
+    color: #a0d8f7;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+}
+
+.instructions h2 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #00cccc;
+}
+
+.instructions ul {
+    list-style: inside disc;
+    line-height: 1.5;
 }
 
 /* Game Area */
@@ -95,10 +101,11 @@ body {
     background-repeat: no-repeat;
 
     box-sizing: border-box;
-    width: 85%;
+    width: 90vw;
+    max-width: 830px;
     height: 70vh;
     max-height: 500px;
-    max-width: 830px;
+
     padding: 3%;
     margin-bottom: 20px;
 
@@ -112,6 +119,7 @@ body {
     align-items: center;
 }
 
+/* Canvas inside game area */
 canvas#canvas {
     width: 100%;
     height: auto;
@@ -122,18 +130,23 @@ canvas#canvas {
 
 /* Score Area */
 .score-area {
-    width: 60%;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    width: 85%;
+    max-width: 830px;
+    margin: 10px auto 30px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #eee;
+    user-select: none;
 }
 
 #score {
     color: rgb(245, 17, 17);
-    font-weight: bolder;
 }
 
 #health {
     color: pink;
-    font-weight: bold;
 }
 
 /* Game Over Screen */
@@ -165,29 +178,59 @@ canvas#canvas {
     cursor: pointer;
 }
 
-/* Utility class for hiding elements */
 .hidden {
     display: none !important;
 }
 
 /* Media Queries */
 @media (max-width: 414px) {
-    .game-area {
-        width: 100%;
-    }
-
-    .score-area {
-        width: 100%;
+    .landing-container {
+        padding: 20px 25px;
     }
 
     .game-title {
         font-size: 2rem;
     }
+
+    .blurb {
+        font-size: 1rem;
+    }
+
+    .instructions {
+        font-size: 0.9rem;
+    }
+
+    .game-area {
+        width: 95vw;
+        height: 60vh;
+        max-height: none;
+    }
+
+    .score-area {
+        width: 100%;
+    }
 }
 
 @media (max-width: 320px) {
+    .landing-container {
+        padding: 15px 20px;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+    }
+
+    .blurb {
+        font-size: 0.9rem;
+    }
+
+    .instructions {
+        font-size: 0.85rem;
+    }
+
     .game-area {
-        height: 70vh;
+        height: 55vh;
+        padding: 2%;
     }
 
     .score-area {

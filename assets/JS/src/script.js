@@ -197,8 +197,8 @@ window.onload = function () {
     restartButton.addEventListener("click", restartGame);
 
     function startIntervals() {
-        enemyInterval = setInterval(spawnEnemies, 1250);
-        healthkitInterval = setInterval(spawnHealthkits, 13000);
+        enemyInterval = setInterval(spawnEnemies, 1500);
+        healthkitInterval = setInterval(spawnHealthkits, 6500);
         shootInterval = setInterval(shoot, 200);
     }
 
@@ -227,7 +227,7 @@ window.onload = function () {
             enemies[i].update();
             if (enemies[i].y > canvas.height) {
                 enemies.splice(i, 1);
-                health -= 10;
+                health -= 1;
                 if (health <= 0) {
                     gameOver();
                     return;
@@ -262,7 +262,7 @@ window.onload = function () {
                     height: playerHeight,
                 })
             ) {
-                health = Math.min(100, health + 20);
+                health = Math.min(100, health + 25);
                 healthkits.splice(i, 1);
             }
         }
