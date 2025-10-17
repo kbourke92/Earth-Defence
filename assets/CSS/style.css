@@ -1,18 +1,80 @@
+/* Body & Base Styles */
 body {
-    background-color: rgb(23, 235, 250);
-    text-align: center;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     flex-direction: column;
+    padding: 20px;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* Landing Page Styles */
+.landing-container {
+    background: rgba(10, 10, 30, 0.85);
+    padding: 40px 50px;
+    border-radius: 15px;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.game-title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.blurb {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: #cceeff;
+}
+
+.instructions {
+    text-align: left;
+    margin-bottom: 35px;
+    color: #a0d8f7;
+}
+
+.instructions h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px #00cccc;
+}
+
+.instructions ul {
+    list-style: inside disc;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.start-button {
+    background-color: #00d4ff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #001f3f;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00ffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: #00ffff;
+    transform: scale(1.1);
 }
 
 /* Heading */
@@ -49,7 +111,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 
 canvas#Canvas {
     width: 100%;
@@ -101,7 +162,6 @@ canvas#Canvas {
 }
 
 /* Media Queries */
-
 @media (max-width: 414px) {
     .game-area {
         width: 100%;

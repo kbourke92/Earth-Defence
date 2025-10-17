@@ -2,25 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Earth Defence</title>
 
     <!-- Styles-->
-    <link rel="stylesheet" href="assets/CSS/style.css">
+    <link rel="stylesheet" href="assets/CSS/style.css" />
 </head>
 
 <body>
-    <h1 class="heading">Earth Defence</h1>
+    <div class="landing-container">
+        <h1 class="game-title">Earth Defence</h1>
+        <p class="blurb">
+            Take up arms and fight! You are the last ace pilot left in the Earth Defence Armada. Aliens are attacking
+            and you must eliminate as many as possible while you have health.
+        </p>
 
-    <div class="game-area">
+        <div class="instructions">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Move your spaceship using <strong>Arrow keys</strong> or <strong>WASD</strong>.</li>
+                <li>Your ship fires automatically — just focus on dodging and aiming.</li>
+                <li>Collect health kits to restore health.</li>
+                <li>If enemies reach the bottom, you lose health.</li>
+                <li>The game ends when your health reaches zero.</li>
+            </ul>
+        </div>
+
+        <button id="start-game-button" class="start-button">Start Game</button>
+    </div>
+
+    <div class="game-area" style="display:none;">
         <!-- Canvas for game -->
-        <canvas id="Canvas">
-            <canvas id="Canvas" width="800" height="400"></canvas>
+        <canvas id="Canvas" width="800" height="400"></canvas>
     </div>
 
     <!-- Score Area -->
-    <div class="score-area">
+    <div class="score-area" style="display:none;">
         <p class="score">Score: <span id="score">0</span></p>
         <p class="health">Health: <span id="health">100</span></p>
     </div>
@@ -31,12 +49,12 @@
         <button id="restart-button">Restart</button>
     </div>
 
-    <footer>
+    <footer style="display:none;">
         <p>2025 Earth Defence &copy;</p>
     </footer>
-</body>
 
-<!-- Module script -->
-<script type="module" src="assets/JS/src/script.js"></script>
+    <!-- Module script -->
+    <script type="module" src="assets/JS/src/script.js"></script>
+</body>
 
 </html>

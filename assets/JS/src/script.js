@@ -4,17 +4,22 @@ window.onload = function () {
     canvas.height = window.innerHeight;
     const c = canvas.getContext("2d");
 
-    // DOM references
+    /* DOM references */
     const scoreElement = document.getElementById("score");
     const healthElement = document.getElementById("health");
     const gameOverScreen = document.getElementById("game-over-screen");
     const finalScoreText = document.getElementById("final-score");
     const restartButton = document.getElementById("restart-button");
+    const startButton = document.getElementById("start-game-button");
+    const landingContainer = document.querySelector(".landing-container");
+    const gameArea = document.querySelector(".game-area");
+    const scoreArea = document.querySelector(".score-area");
+    const footer = document.querySelector("footer");
 
-    // Game state
+    /* Game state */
     let score = 0;
     let health = 100;
-    let gameRunning = true;
+    let gameRunning = false;
 
     const playerWidth = 33;
     const playerHeight = 33;
@@ -37,12 +42,12 @@ window.onload = function () {
     let enemies = [];
     let healthkits = [];
 
-    // Player position (keyboard-controlled)
+    /* Player position */
     let playerX = innerWidth / 2;
     let playerY = innerHeight - 100;
     const playerSpeed = 7;
 
-    // Keyboard input tracking
+    /* Keyboard input tracking */
     const keys = {
         ArrowUp: false,
         ArrowDown: false,
@@ -129,25 +134,26 @@ window.onload = function () {
 
     const player = new Player(playerWidth, playerHeight);
 
+    /* Variables to hold intervals so we can clear them when stopping/restarting game */
+    let enemyInterval, healthkitInterval, shootInterval;
+
     function spawnEnemies() {
         if (!gameRunning) return;
         for (let i = 0; i < 4; i++) {
-            const x = Math.random() * (innerWidth - enemyWidth);
+            const x = Math.random() * (canvas.width - enemyWidth);
             const y = -enemyHeight;
             const speed = 1 + Math.random() * 2;
             enemies.push(new Enemy(x, y, enemyWidth, enemyHeight, speed));
         }
     }
-    setInterval(spawnEnemies, 1250);
 
     function spawnHealthkits() {
         if (!gameRunning) return;
-        const x = Math.random() * (innerWidth - healthkitWidth);
+        const x = Math.random() * (canvas.width - healthkitWidth);
         const y = -healthkitHeight;
         const speed = 1 + Math.random() * 2;
         healthkits.push(new Healthkit(x, y, healthkitWidth, healthkitHeight, speed));
     }
-    setInterval(spawnHealthkits, 13000);
 
     function shoot() {
         if (!gameRunning) return;
@@ -155,7 +161,6 @@ window.onload = function () {
         const y = playerY;
         bullets.push(new Bullet(x, y, bulletWidth, bulletHeight, bulletSpeed));
     }
-    setInterval(shoot, 200);
 
     function collision(a, b) {
         return a.x < b.x + b.width &&
@@ -168,6 +173,11 @@ window.onload = function () {
         gameRunning = false;
         finalScoreText.textContent = "Your Score: " + score;
         gameOverScreen.style.display = "flex";
+
+        /* Clear Intervals for Game Over */
+        clearInterval(enemyInterval);
+        clearInterval(healthkitInterval);
+        clearInterval(shootInterval);
     }
 
     function restartGame() {
@@ -178,23 +188,30 @@ window.onload = function () {
         healthkits = [];
         gameOverScreen.style.display = "none";
         gameRunning = true;
-        animate(); // Restart game loop
+        playerX = canvas.width / 2;
+        playerY = canvas.height - 100;
+        startIntervals();
+        animate();
     }
 
     restartButton.addEventListener("click", restartGame);
+
+    function startIntervals() {
+        enemyInterval = setInterval(spawnEnemies, 1250);
+        healthkitInterval = setInterval(spawnHealthkits, 13000);
+        shootInterval = setInterval(shoot, 200);
+    }
 
     function animate() {
         if (!gameRunning) return;
         requestAnimationFrame(animate);
         c.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Move player
         if (keys.ArrowLeft || keys.a) playerX -= playerSpeed;
         if (keys.ArrowRight || keys.d) playerX += playerSpeed;
         if (keys.ArrowUp || keys.w) playerY -= playerSpeed;
         if (keys.ArrowDown || keys.s) playerY += playerSpeed;
 
-        // Clamp player within canvas bounds
         playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
         playerY = Math.max(0, Math.min(canvas.height - playerHeight, playerY));
 
@@ -240,10 +257,48 @@ window.onload = function () {
             }
         }
 
-        // Update HUD
         scoreElement.textContent = score;
         healthElement.textContent = health;
     }
 
-    animate();
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    /* Landing page */
+
+    landingContainer.style.display = "flex";
+    gameArea.style.display = "none";
+    scoreArea.style.display = "none";
+    if (footer) footer.style.display = "none";
+
+    function initPlayerPosition() {
+        playerX = canvas.width / 2;
+        playerY = canvas.height - 100;
+    }
+
+    startButton.addEventListener("click", () => {
+
+        landingContainer.style.display = "none";
+
+        gameArea.style.display = "flex";
+        scoreArea.style.display = "block";
+        if (footer) footer.style.display = "block";
+
+        /* Game Start */
+        score = 0;
+        health = 100;
+        bullets = [];
+        enemies = [];
+        healthkits = [];
+        gameRunning = true;
+        initPlayerPosition();
+
+
+        startIntervals();
+
+
+        animate();
+    });
 };
