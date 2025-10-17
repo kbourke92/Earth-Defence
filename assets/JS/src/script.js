@@ -1,14 +1,20 @@
 window.onload = function () {
-    const canvas = document.getElementById("Canvas") || document.querySelector("canvas");
+    const canvas = document.getElementById("Canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const c = canvas.getContext("2d");
 
+    // DOM references
     const scoreElement = document.getElementById("score");
     const healthElement = document.getElementById("health");
+    const gameOverScreen = document.getElementById("game-over-screen");
+    const finalScoreText = document.getElementById("final-score");
+    const restartButton = document.getElementById("restart-button");
 
+    // Game state
     let score = 0;
     let health = 100;
+    let gameRunning = true;
 
     const playerWidth = 33;
     const playerHeight = 33;
@@ -31,28 +37,40 @@ window.onload = function () {
     let enemies = [];
     let healthkits = [];
 
-    /* Player class */
-    function Player(x, y, width, height) {
-        this.x = x;
-        this.y = y;
+    // Player position (keyboard-controlled)
+    let playerX = innerWidth / 2;
+    let playerY = innerHeight - 100;
+    const playerSpeed = 7;
+
+    // Keyboard input tracking
+    const keys = {
+        ArrowUp: false,
+        ArrowDown: false,
+        ArrowLeft: false,
+        ArrowRight: false,
+        w: false,
+        a: false,
+        s: false,
+        d: false
+    };
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key in keys) keys[e.key] = true;
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (e.key in keys) keys[e.key] = false;
+    });
+
+    function Player(width, height) {
         this.width = width;
         this.height = height;
-        this.speed = 5;
-        this.dx = 0;
-        this.dy = 0;
 
         this.draw = function () {
-            c.drawImage(playerImg, this.x, this.y, this.width, this.height);
+            c.drawImage(playerImg, playerX, playerY, this.width, this.height);
         };
 
         this.update = function () {
-            this.x += this.dx;
-            this.y += this.dy;
-
-            /* Code to stay within canvas */
-            this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
-            this.y = Math.max(0, Math.min(canvas.height - this.height, this.y));
-
             this.draw();
         };
     }
@@ -109,51 +127,12 @@ window.onload = function () {
         };
     }
 
-    /* Create the player */
-    const player = new Player(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 20, playerWidth, playerHeight);
-
-    /* Keyboard input */
-    document.addEventListener("keydown", function (e) {
-        switch (e.key) {
-            case "ArrowLeft":
-            case "a":
-                player.dx = -player.speed;
-                break;
-            case "ArrowRight":
-            case "d":
-                player.dx = player.speed;
-                break;
-            case "ArrowUp":
-            case "w":
-                player.dy = -player.speed;
-                break;
-            case "ArrowDown":
-            case "s":
-                player.dy = player.speed;
-                break;
-        }
-    });
-
-    document.addEventListener("keyup", function (e) {
-        switch (e.key) {
-            case "ArrowLeft":
-            case "a":
-            case "ArrowRight":
-            case "d":
-                player.dx = 0;
-                break;
-            case "ArrowUp":
-            case "w":
-            case "ArrowDown":
-            case "s":
-                player.dy = 0;
-                break;
-        }
-    });
+    const player = new Player(playerWidth, playerHeight);
 
     function spawnEnemies() {
+        if (!gameRunning) return;
         for (let i = 0; i < 4; i++) {
-            const x = Math.random() * (canvas.width - enemyWidth);
+            const x = Math.random() * (innerWidth - enemyWidth);
             const y = -enemyHeight;
             const speed = 1 + Math.random() * 2;
             enemies.push(new Enemy(x, y, enemyWidth, enemyHeight, speed));
@@ -162,32 +141,62 @@ window.onload = function () {
     setInterval(spawnEnemies, 1250);
 
     function spawnHealthkits() {
-        const x = Math.random() * (canvas.width - healthkitWidth);
+        if (!gameRunning) return;
+        const x = Math.random() * (innerWidth - healthkitWidth);
         const y = -healthkitHeight;
-        const speed = 1 + Math.random() * 2.8;
+        const speed = 1 + Math.random() * 2;
         healthkits.push(new Healthkit(x, y, healthkitWidth, healthkitHeight, speed));
     }
     setInterval(spawnHealthkits, 13000);
 
     function shoot() {
-        const x = player.x + player.width / 2 - bulletWidth / 2;
-        const y = player.y;
+        if (!gameRunning) return;
+        const x = playerX + playerWidth / 2 - bulletWidth / 2;
+        const y = playerY;
         bullets.push(new Bullet(x, y, bulletWidth, bulletHeight, bulletSpeed));
     }
     setInterval(shoot, 200);
 
     function collision(a, b) {
-        return (
-            a.x < b.x + b.width &&
+        return a.x < b.x + b.width &&
             a.x + a.width > b.x &&
             a.y < b.y + b.height &&
-            a.y + a.height > b.y
-        );
+            a.y + a.height > b.y;
     }
 
+    function gameOver() {
+        gameRunning = false;
+        finalScoreText.textContent = "Your Score: " + score;
+        gameOverScreen.style.display = "flex";
+    }
+
+    function restartGame() {
+        score = 0;
+        health = 100;
+        bullets = [];
+        enemies = [];
+        healthkits = [];
+        gameOverScreen.style.display = "none";
+        gameRunning = true;
+        animate(); // Restart game loop
+    }
+
+    restartButton.addEventListener("click", restartGame);
+
     function animate() {
+        if (!gameRunning) return;
         requestAnimationFrame(animate);
         c.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Move player
+        if (keys.ArrowLeft || keys.a) playerX -= playerSpeed;
+        if (keys.ArrowRight || keys.d) playerX += playerSpeed;
+        if (keys.ArrowUp || keys.w) playerY -= playerSpeed;
+        if (keys.ArrowDown || keys.s) playerY += playerSpeed;
+
+        // Clamp player within canvas bounds
+        playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
+        playerY = Math.max(0, Math.min(canvas.height - playerHeight, playerY));
 
         player.update();
 
@@ -202,11 +211,8 @@ window.onload = function () {
                 enemies.splice(i, 1);
                 health -= 10;
                 if (health <= 0) {
-                    alert("Game Over!\nYour score is " + score);
-                    enemies = [];
-                    bullets = [];
-                    health = 100;
-                    score = 0;
+                    gameOver();
+                    return;
                 }
             }
         }
@@ -228,13 +234,13 @@ window.onload = function () {
                 healthkits.splice(i, 1);
                 continue;
             }
-            if (collision(healthkits[i], player)) {
+            if (collision(healthkits[i], { x: playerX, y: playerY, width: playerWidth, height: playerHeight })) {
                 health = Math.min(100, health + 20);
                 healthkits.splice(i, 1);
             }
         }
 
-        /* Update DOM */
+        // Update HUD
         scoreElement.textContent = score;
         healthElement.textContent = health;
     }

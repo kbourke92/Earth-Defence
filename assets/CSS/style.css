@@ -76,22 +76,27 @@ canvas#Canvas {
 }
 
 #game-over-screen {
+    display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(30, 30, 30, 0.9);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 40px;
-    border-radius: 10px;
+    font-family: sans-serif;
+    font-size: 32px;
     text-align: center;
-    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 20;
 }
 
-#game-over-screen button {
+#restart-button {
     margin-top: 20px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 20px;
     cursor: pointer;
 }
 
