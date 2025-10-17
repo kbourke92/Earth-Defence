@@ -3,14 +3,18 @@ Take up arms and fight! You are the last ace pilot left in the Earth Defence Arm
 
 ## Features
 
-### Landing Page and Logo
+### Landing Page
 Upon arrival you will be presented with the current situation, a reminder on how to fly your ship and to grab health as much as you can. The aliens are ceaseless.
+
+<img width="500" height="494" alt="Landing Screen" src="https://github.com/user-attachments/assets/ddebae85-20a1-46e4-b17c-b82744fcda10" />
+
 
 ### Game area
 This is your battlefield! Don't stop firing until your last breath. The aliens will keep coming along with lots of health kits. Due to the alien mist covering earth your health will keep falling. When your health reaches zero its game over. The aliens have won.
 
 ### Game Over 
 Upon death you will be shown your score and the option to revive and try again. This also includes a motivational message to give you strength.
+
 
 ## Features left to implement
 
