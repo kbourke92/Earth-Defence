@@ -95,6 +95,13 @@ body {
 }
 
 /* Game Area */
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .game-area {
     background-size: cover;
     background-position: center;
@@ -151,7 +158,6 @@ canvas#canvas {
 
 /* Game Over Screen */
 #game-over-screen {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -181,6 +187,16 @@ canvas#canvas {
 .hidden {
     display: none !important;
 }
+
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 0.9rem;
+    z-index: 100;
+}
+
 
 /* Media Queries */
 @media (max-width: 414px) {
