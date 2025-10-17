@@ -59,6 +59,9 @@ These are the additional resources I used to create this project
 - The alien image was provided by [Alien](https://i.ibb.co/0YgHvmx/enemy-fotor-20230927153748.png)
 - The healthkit image was provided by [Health Kit](https://www.pngwing.com/en/free-png-bpufm)
 
+### Content
+The inspiration for this project came from the following [Javascript Project](https://www.youtube.com/watch?v=7LThUC81_Ow&list=PLj45wIw9J1OTikOakEXpNwL06Npfj59iS&index=11)
+
 
 
 
