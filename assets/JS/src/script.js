@@ -32,7 +32,7 @@ window.onload = function () {
     const healthkitHeight = 33;
 
     const playerImg = new Image();
-    playerImg.src = "assets/images/spaceship.png";
+    playerImg.src = "assets/images.spaceship.png";
     const enemyImg = new Image();
     enemyImg.src = "assets/images/alien.png";
     const healthkitImg = new Image();
