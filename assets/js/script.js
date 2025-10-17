@@ -195,9 +195,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function startIntervals() {
-        enemyInterval = setInterval(spawnEnemies, 2000);
+        enemyInterval = setInterval(spawnEnemies, 1000);
         healthkitInterval = setInterval(spawnHealthkits, 6500);
-        shootInterval = setInterval(shoot, 275);
+        shootInterval = setInterval(shoot, 150);
     }
 
     function animate() {
