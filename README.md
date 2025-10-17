@@ -3,14 +3,23 @@ Take up arms and fight! You are the last ace pilot left in the Earth Defence Arm
 
 ## Features
 
-### Landing Page and Logo
+### Landing Page
 Upon arrival you will be presented with the current situation, a reminder on how to fly your ship and to grab health as much as you can. The aliens are ceaseless.
+
+<img width="550" height="400" alt="Landing Screen" src="https://github.com/user-attachments/assets/ddebae85-20a1-46e4-b17c-b82744fcda10" />
+
 
 ### Game area
 This is your battlefield! Don't stop firing until your last breath. The aliens will keep coming along with lots of health kits. Due to the alien mist covering earth your health will keep falling. When your health reaches zero its game over. The aliens have won.
 
+<img width="550" height="400" alt="Game Screen" src="https://github.com/user-attachments/assets/a5852af2-9cec-4bb9-8f54-bd2df2a91261" />
+
+
 ### Game Over 
 Upon death you will be shown your score and the option to revive and try again. This also includes a motivational message to give you strength.
+
+<img width="550" height="400" alt="Game Over Screen" src="https://github.com/user-attachments/assets/e6381a7f-184d-41a6-a01a-7f49ead06ff1" />
+
 
 ## Features left to implement
 
@@ -22,13 +31,13 @@ Upon death you will be shown your score and the option to revive and try again. 
 ### Validator Testing
 
 - HTML Testing
-  - No errors were returned when passing through the official W3C Validator.
+  - No errors were returned when passing through the official [W3C Validator](https://validator.w3.org/).
 
 - CSS Testing
-  - No errors were returned when passing through the official (Jigsaw) Validator.
+  - No errors were returned when passing through the official [(Jigsaw) Validator](https://jigsaw.w3.org/css-validator/).
 
 - JS Testing
-  - No errors were returned when passing through the official Jshint Validator.
+  - No errors were returned when passing through the official [Jshint Validator](https://jshint.com/).
 
 ## Deployment
 
