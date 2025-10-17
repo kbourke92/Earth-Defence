@@ -13,8 +13,13 @@
 <body>
     <h1 class="heading"></h1>
 
-    <div class="game-area"></div>
+    <div class="game-area">
+        <!-- Canvas for game -->
+        <canvas id="Canvas">
+            <canvas id="Canvas" width="800" height="400"></canvas>
+    </div>
 
+    <!-- Score Area -->
     <div class="score-area">
         <p class="score">Score: <span id="score">0</span></p>
         <p class="health">Health: <span id="health">100</span></p>
@@ -25,11 +30,7 @@
     </footer>
 </body>
 
-
-<!-- Canvas for game -->
-<canvas id="Canvas"></canvas>
-
 <!-- Module script -->
-<script type="module" src="assets/JS/script.js"></script>
+<script type="module" src="assets/JS/src/script.js"></script>
 
 </html>

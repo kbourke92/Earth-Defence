@@ -1,12 +1,101 @@
 body {
-    background: url("background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: antiquewhite;
+    text-align: center;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    flex-direction: column;
+}
 
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Heading */
+.heading {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Game Area */
+.game-area {
+    background-image: url("../images/background.jpg");
+    /* adjust path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+    width: 85%;
+    height: 70vh;
+    max-height: 500px;
+    max-width: 830px;
+    padding: 3%;
+    margin-bottom: 20px;
+
+    /* Add visible box styles */
+    border: 4px solid #333;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+canvas#Canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid #fff;
+    background: navy;
+}
+
+/* Score Area */
+.score-area {
+    width: 60%;
+    font-size: 1.2rem;
+}
+
+#score {
+    color: white;
+    font-weight: bold;
+}
+
+#health {
+    color: pink;
+    font-weight: bold;
+}
+
+/* Media Queries */
+
+@media (max-width: 414px) {
+    .game-area {
+        width: 100%;
+    }
+
+    .score-area {
+        width: 100%;
+    }
+
+    .h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .game-area {
+        height: 70vh;
+    }
+
+    .score-area {
+        width: 100%;
+    }
 }
