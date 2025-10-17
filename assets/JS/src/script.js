@@ -32,11 +32,11 @@ window.onload = function () {
     const healthkitHeight = 33;
 
     const playerImg = new Image();
-    playerImg.src = "assets/images.spaceship.png";
+    playerImg.src = "../images/spaceship.png";
     const enemyImg = new Image();
-    enemyImg.src = "assets/images/alien.png";
+    enemyImg.src = "../images/alien.png";
     const healthkitImg = new Image();
-    healthkitImg.src = "assets/images/Healthkit.png";
+    healthkitImg.src = "../images/healthkit.png";
 
     let bullets = [];
     let enemies = [];

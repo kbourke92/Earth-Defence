@@ -132,7 +132,7 @@ canvas#canvas {
     height: auto;
     display: block;
     border: 2px solid #fff;
-    background: url("assets/images/background.jpg");
+    background: url("../assets/images/background.jpg");
 }
 
 /* Score Area */
