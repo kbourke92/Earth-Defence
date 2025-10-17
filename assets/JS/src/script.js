@@ -1,5 +1,5 @@
 window.onload = function () {
-    const canvas = document.getElementById("Canvas");
+    const canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const c = canvas.getContext("2d");
@@ -43,8 +43,8 @@ window.onload = function () {
     let healthkits = [];
 
     /* Player position */
-    let playerX = innerWidth / 2;
-    let playerY = innerHeight - 100;
+    let playerX = canvas.width / 2;
+    let playerY = canvas.height - 100;
     const playerSpeed = 7;
 
     /* Keyboard input tracking */
@@ -56,7 +56,7 @@ window.onload = function () {
         w: false,
         a: false,
         s: false,
-        d: false
+        d: false,
     };
 
     document.addEventListener("keydown", (e) => {
@@ -134,7 +134,7 @@ window.onload = function () {
 
     const player = new Player(playerWidth, playerHeight);
 
-    /* Variables to hold intervals so we can clear them when stopping/restarting game */
+    /* Variables to hold intervals so we can clear them */
     let enemyInterval, healthkitInterval, shootInterval;
 
     function spawnEnemies() {
@@ -163,10 +163,12 @@ window.onload = function () {
     }
 
     function collision(a, b) {
-        return a.x < b.x + b.width &&
+        return (
+            a.x < b.x + b.width &&
             a.x + a.width > b.x &&
             a.y < b.y + b.height &&
-            a.y + a.height > b.y;
+            a.y + a.height > b.y
+        );
     }
 
     function gameOver() {
@@ -174,7 +176,6 @@ window.onload = function () {
         finalScoreText.textContent = "Your Score: " + score;
         gameOverScreen.style.display = "flex";
 
-        /* Clear Intervals for Game Over */
         clearInterval(enemyInterval);
         clearInterval(healthkitInterval);
         clearInterval(shootInterval);
@@ -188,8 +189,7 @@ window.onload = function () {
         healthkits = [];
         gameOverScreen.style.display = "none";
         gameRunning = true;
-        playerX = canvas.width / 2;
-        playerY = canvas.height - 100;
+        initPlayerPosition();
         startIntervals();
         animate();
     }
@@ -205,6 +205,7 @@ window.onload = function () {
     function animate() {
         if (!gameRunning) return;
         requestAnimationFrame(animate);
+
         c.clearRect(0, 0, canvas.width, canvas.height);
 
         if (keys.ArrowLeft || keys.a) playerX -= playerSpeed;
@@ -247,11 +248,20 @@ window.onload = function () {
 
         for (let i = healthkits.length - 1; i >= 0; i--) {
             healthkits[i].update();
+
             if (healthkits[i].y > canvas.height) {
                 healthkits.splice(i, 1);
                 continue;
             }
-            if (collision(healthkits[i], { x: playerX, y: playerY, width: playerWidth, height: playerHeight })) {
+
+            if (
+                collision(healthkits[i], {
+                    x: playerX,
+                    y: playerY,
+                    width: playerWidth,
+                    height: playerHeight,
+                })
+            ) {
                 health = Math.min(100, health + 20);
                 healthkits.splice(i, 1);
             }
@@ -261,13 +271,14 @@ window.onload = function () {
         healthElement.textContent = health;
     }
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        initPlayerPosition();
     });
 
-    /* Landing page */
-
+    /* Landing page initial state */
     landingContainer.style.display = "flex";
     gameArea.style.display = "none";
     scoreArea.style.display = "none";
@@ -279,14 +290,12 @@ window.onload = function () {
     }
 
     startButton.addEventListener("click", () => {
-
         landingContainer.style.display = "none";
-
         gameArea.style.display = "flex";
         scoreArea.style.display = "block";
         if (footer) footer.style.display = "block";
 
-        /* Game Start */
+        /* Start the game */
         score = 0;
         health = 100;
         bullets = [];
@@ -295,10 +304,7 @@ window.onload = function () {
         gameRunning = true;
         initPlayerPosition();
 
-
         startIntervals();
-
-
         animate();
     });
 };

@@ -11,30 +11,35 @@
 </head>
 
 <body>
-    <div class="landing-container">
-        <h1 class="game-title">Earth Defence</h1>
-        <p class="blurb">
-            Take up arms and fight! You are the last ace pilot left in the Earth Defence Armada. Aliens are attacking
-            and you must eliminate as many as possible while you have health.
-        </p>
+    <!-- New wrapper for centering the landing container -->
+    <div class="main-container">
+        <div class="landing-container">
+            <h1 class="game-title">Earth Defence</h1>
+            <p class="blurb">
+                Take up arms and fight! You are the last ace pilot left in the Earth Defence Armada. Aliens are
+                attacking
+                and you must eliminate as many as possible while you have health.
+            </p>
 
-        <div class="instructions">
-            <h2>How to Play</h2>
-            <ul>
-                <li>Move your spaceship using <strong>Arrow keys</strong> or <strong>WASD</strong>.</li>
-                <li>Your ship fires automatically — just focus on dodging and aiming.</li>
-                <li>Collect health kits to restore health.</li>
-                <li>If enemies reach the bottom, you lose health.</li>
-                <li>The game ends when your health reaches zero.</li>
-            </ul>
+            <div class="instructions">
+                <h2>How to Play</h2>
+                <ul>
+                    <li>Move your spaceship using <strong>Arrow keys</strong> or <strong>WASD</strong>.</li>
+                    <li>Your ship fires automatically — just focus on dodging and aiming.</li>
+                    <li>Collect health kits to restore health.</li>
+                    <li>If enemies reach the bottom, you lose health.</li>
+                    <li>The game ends when your health reaches zero.</li>
+                </ul>
+            </div>
+
+            <button id="start-game-button" class="start-button">Start Game</button>
         </div>
-
-        <button id="start-game-button" class="start-button">Start Game</button>
     </div>
 
-    <div class="game-area" style="display:none;">
+    <!-- Game Area -->
+    <div class="game-area">
         <!-- Canvas for game -->
-        <canvas id="Canvas" width="800" height="400"></canvas>
+        <canvas id="canvas" width="800" height="400"></canvas>
     </div>
 
     <!-- Score Area -->
@@ -43,14 +48,16 @@
         <p class="health">Health: <span id="health">100</span></p>
     </div>
 
-    <div id="game-over-screen" style="display: none;">
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" style="display: none;" aria-labelledby="final-score">
         <h2>Game Over</h2>
         <p id="final-score">Your Score: 0</p>
         <button id="restart-button">Restart</button>
     </div>
 
+    <!-- Footer -->
     <footer style="display:none;">
-        <p>2025 Earth Defence &copy;</p>
+        <p>2025 Earth Defence</p>
     </footer>
 
     <!-- Module script -->

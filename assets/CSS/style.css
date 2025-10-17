@@ -7,7 +7,7 @@ body {
     height: 100vh;
 }
 
-/* Updated main container to center landing page content */
+/* Main container to center Landing Page content */
 .main-container {
     display: flex;
     justify-content: center;
@@ -90,7 +90,6 @@ body {
 
 /* Game Area */
 .game-area {
-    background-color: navy;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -113,7 +112,7 @@ body {
     align-items: center;
 }
 
-canvas#Canvas {
+canvas#canvas {
     width: 100%;
     height: auto;
     display: block;
@@ -124,7 +123,7 @@ canvas#Canvas {
 /* Score Area */
 .score-area {
     width: 60%;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
 #score {
@@ -137,6 +136,7 @@ canvas#Canvas {
     font-weight: bold;
 }
 
+/* Game Over Screen */
 #game-over-screen {
     display: none;
     position: fixed;
@@ -149,9 +149,12 @@ canvas#Canvas {
     font-family: sans-serif;
     font-size: 32px;
     text-align: center;
+
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     z-index: 20;
 }
 
@@ -160,6 +163,11 @@ canvas#Canvas {
     padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
+}
+
+/* Utility class for hiding elements */
+.hidden {
+    display: none !important;
 }
 
 /* Media Queries */
@@ -172,7 +180,7 @@ canvas#Canvas {
         width: 100%;
     }
 
-    .h1 {
+    .game-title {
         font-size: 2rem;
     }
 }
