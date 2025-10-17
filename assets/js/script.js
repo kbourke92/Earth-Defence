@@ -32,11 +32,11 @@ window.onload = function () {
     const healthkitHeight = 33;
 
     const playerImg = new Image();
-    playerImg.src = "../images/spaceship.png";
+    playerImg.src = "assets/images/spaceship.png";
     const enemyImg = new Image();
-    enemyImg.src = "../images/alien.png";
+    enemyImg.src = "assets/images/alien.png";
     const healthkitImg = new Image();
-    healthkitImg.src = "../images/healthkit.png";
+    healthkitImg.src = "assets/images/healthkit.png";
 
     let bullets = [];
     let enemies = [];
@@ -115,7 +115,7 @@ window.onload = function () {
         };
     }
 
-    function Healthkit(x, y, width, height, speed) {
+    function healthkit(x, y, width, height, speed) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -152,7 +152,7 @@ window.onload = function () {
         const x = Math.random() * (canvas.width - healthkitWidth);
         const y = -healthkitHeight;
         const speed = 1 + Math.random() * 2.5;
-        healthkits.push(new Healthkit(x, y, healthkitWidth, healthkitHeight, speed));
+        healthkits.push(new healthkit(x, y, healthkitWidth, healthkitHeight, speed));
     }
 
     function shoot() {
