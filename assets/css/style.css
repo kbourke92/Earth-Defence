@@ -94,6 +94,12 @@ body {
     line-height: 1.5;
 }
 
+.game-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
 /* Game Area */
 .game-wrapper {
     display: flex;
