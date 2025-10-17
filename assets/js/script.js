@@ -2,8 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("canvas");
     const c = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    /* Set the canvas to full screen initially */
+    function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    setCanvasSize();
 
     /* DOM Elements */
     const scoreElement = document.getElementById("score");
@@ -22,15 +27,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let health = 100;
     let gameRunning = false;
 
-    const playerWidth = 33;
-    const playerHeight = 33;
-    const bulletWidth = 7;
-    const bulletHeight = 9;
+    /* Default sizes based on a full-screen canvas */
+    let playerWidth = 33;
+    let playerHeight = 33;
+    let bulletWidth = 7;
+    let bulletHeight = 9;
+    let enemyWidth = 33;
+    let enemyHeight = 33;
+    let healthkitWidth = 33;
+    let healthkitHeight = 33;
+
+    let playerSpeed = 7;
     const bulletSpeed = 10;
-    const enemyWidth = 33;
-    const enemyHeight = 33;
-    const healthkitWidth = 33;
-    const healthkitHeight = 33;
 
     const playerImg = new Image();
     playerImg.src = "assets/images/spaceship.png";
@@ -45,27 +53,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let playerX = canvas.width / 2;
     let playerY = canvas.height - 100;
-    const playerSpeed = 7;
 
-    const keys = {
-        ArrowUp: false,
-        ArrowDown: false,
-        ArrowLeft: false,
-        ArrowRight: false,
-        w: false,
-        a: false,
-        s: false,
-        d: false,
-    };
+    /* Touch Screen */
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key in keys) keys[e.key] = true;
+    canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const touchX = touch.pageX;
+
+        if (touchX < canvas.width / 2) {
+            playerX -= playerSpeed;
+        } else {
+            playerX += playerSpeed;
+        }
+
+        playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
     });
 
-    document.addEventListener("keyup", (e) => {
-        if (e.key in keys) keys[e.key] = false;
-    });
-
+    /* Player class */
     class Player {
         constructor(width, height) {
             this.width = width;
@@ -81,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /* Bullet class */
     class Bullet {
         constructor(x, y, width, height, speed) {
             this.x = x;
@@ -91,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         draw() {
-            c.fillStyle = "white";
+            c.fillStyle = "purple";
             c.fillRect(this.x, this.y, this.width, this.height);
         }
 
@@ -101,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /* Enemy class */
     class Enemy {
         constructor(x, y, width, height, speed) {
             this.x = x;
@@ -120,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /* Healthkit class */
     class Healthkit {
         constructor(x, y, width, height, speed) {
             this.x = x;
@@ -205,14 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(animate);
         c.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (keys.ArrowLeft || keys.a) playerX -= playerSpeed;
-        if (keys.ArrowRight || keys.d) playerX += playerSpeed;
-        if (keys.ArrowUp || keys.w) playerY -= playerSpeed;
-        if (keys.ArrowDown || keys.s) playerY += playerSpeed;
-
-        playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
-        playerY = Math.max(0, Math.min(canvas.height - playerHeight, playerY));
-
         player.update();
 
         bullets = bullets.filter(b => {
@@ -279,9 +281,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     restartButton.addEventListener("click", restartGame);
 
+    /* Update canvas size and player position on resize */
     window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        setCanvasSize();
         initPlayerPosition();
     });
 
@@ -289,6 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
     landingContainer.style.display = "flex";
     gameArea.style.display = "none";
     scoreArea.style.display = "none";
-    if (footer) footer.style.display = "none";
+    if (footer) footer.style
+
 });
 
