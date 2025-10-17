@@ -1,4 +1,4 @@
-window.onload = function () {
+DOMContentLoaded = function () {
     const canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -67,69 +67,77 @@ window.onload = function () {
         if (e.key in keys) keys[e.key] = false;
     });
 
-    function Player(width, height) {
-        this.width = width;
-        this.height = height;
+    class player {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
 
-        this.draw = function () {
-            c.drawImage(playerImg, playerX, playerY, this.width, this.height);
-        };
+            this.draw = function () {
+                c.drawImage(playerImg, playerX, playerY, this.width, this.height);
+            };
 
-        this.update = function () {
-            this.draw();
-        };
+            this.update = function () {
+                this.draw();
+            };
+        }
     }
 
-    function Bullet(x, y, width, height, speed) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.speed = speed;
+    class bullet {
+        constructor(x, y, width, height, speed) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.speed = speed;
 
-        this.draw = function () {
-            c.fillStyle = "white";
-            c.fillRect(this.x, this.y, this.width, this.height);
-        };
+            this.draw = function () {
+                c.fillStyle = "white";
+                c.fillRect(this.x, this.y, this.width, this.height);
+            };
 
-        this.update = function () {
-            this.y -= this.speed;
-            this.draw();
-        };
+            this.update = function () {
+                this.y -= this.speed;
+                this.draw();
+            };
+        }
     }
 
-    function Enemy(x, y, width, height, speed) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.speed = speed;
+    class enemy {
+        constructor(x, y, width, height, speed) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.speed = speed;
 
-        this.draw = function () {
-            c.drawImage(enemyImg, this.x, this.y, this.width, this.height);
-        };
+            this.draw = function () {
+                c.drawImage(enemyImg, this.x, this.y, this.width, this.height);
+            };
 
-        this.update = function () {
-            this.y += this.speed;
-            this.draw();
-        };
+            this.update = function () {
+                this.y += this.speed;
+                this.draw();
+            };
+        }
     }
 
-    function healthkit(x, y, width, height, speed) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.speed = speed;
+    class healthkit {
+        constructor(x, y, width, height, speed) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.speed = speed;
 
-        this.draw = function () {
-            c.drawImage(healthkitImg, this.x, this.y, this.width, this.height);
-        };
+            this.draw = function () {
+                c.drawImage(healthkitImg, this.x, this.y, this.width, this.height);
+            };
 
-        this.update = function () {
-            this.y += this.speed;
-            this.draw();
-        };
+            this.update = function () {
+                this.y += this.speed;
+                this.draw();
+            };
+        }
     }
 
     const player = new Player(playerWidth, playerHeight);
