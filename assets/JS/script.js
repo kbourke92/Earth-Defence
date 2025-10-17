@@ -199,7 +199,7 @@ window.onload = function () {
     function startIntervals() {
         enemyInterval = setInterval(spawnEnemies, 2000);
         healthkitInterval = setInterval(spawnHealthkits, 6500);
-        shootInterval = setInterval(shoot, 250);
+        shootInterval = setInterval(shoot, 275);
     }
 
     function animate() {
