@@ -37,7 +37,11 @@ Upon death you will be shown your score and the option to revive and try again. 
   - No errors were returned when passing through the official [(Jigsaw) Validator](https://jigsaw.w3.org/css-validator/).
 
 - JS Testing
-  - No errors were returned when passing through the official [Jshint Validator](https://jshint.com/).
+  - No errors were returned when passing through the official [JsHint Validator](https://jshint.com/).
+   - There are 26 functions in this file.
+   - Function with the largest signature take 5 arguments, while the median is 0.
+   - Largest function has 63 statements in it, while the median is 3.
+   - The most complex function has a cyclomatic complexity value of 21 while the median is 1.
 
 ## Deployment
 
