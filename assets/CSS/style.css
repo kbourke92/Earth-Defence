@@ -1,5 +1,5 @@
 body {
-    background-color: antiquewhite;
+    background-color: rgb(23, 235, 250);
     text-align: center;
     margin: 0;
     height: 100vh;
@@ -20,11 +20,12 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 20px;
+    color: #1a1a1a;
 }
 
 /* Game Area */
 .game-area {
-    background-image: url("../images/background.jpg");
+    background-color: navy;
     /* adjust path */
     background-size: cover;
     background-position: center;
@@ -55,7 +56,7 @@ canvas#Canvas {
     height: auto;
     display: block;
     border: 2px solid #fff;
-    background: navy;
+    background: url("../images/background.jpg");
 }
 
 /* Score Area */
@@ -65,13 +66,33 @@ canvas#Canvas {
 }
 
 #score {
-    color: white;
-    font-weight: bold;
+    color: rgb(245, 17, 17);
+    font-weight: bolder;
 }
 
 #health {
     color: pink;
     font-weight: bold;
+}
+
+#game-over-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 999;
+}
+
+#game-over-screen button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 /* Media Queries */

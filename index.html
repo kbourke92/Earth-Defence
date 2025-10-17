@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <h1 class="heading"></h1>
+    <h1 class="heading">Earth Defence</h1>
 
     <div class="game-area">
         <!-- Canvas for game -->
@@ -23,6 +23,12 @@
     <div class="score-area">
         <p class="score">Score: <span id="score">0</span></p>
         <p class="health">Health: <span id="health">100</span></p>
+    </div>
+
+    <div id="game-over-screen" style="display: none;">
+        <h2>Game Over</h2>
+        <p id="final-score">Your Score: 0</p>
+        <button id="restart-button">Restart</button>
     </div>
 
     <footer>
