@@ -267,6 +267,26 @@ document.addEventListener("DOMContentLoaded", function () {
     landingContainer.style.display = "flex";
     gameArea.style.display = "none";
     scoreArea.style.display = "none";
-    if (footer) footer.style
+    if (footer) footer.style.display = "none";
+
+    /* Movement using keyboard (Arrow keys/WASD) */
+    document.addEventListener("keydown", function (event) {
+        if (!gameRunning) return;
+
+        const speed = playerSpeed;
+
+        if (event.key === "ArrowUp" || event.key === "w") {
+            playerY = Math.max(0, playerY - speed);
+        }
+        if (event.key === "ArrowDown" || event.key === "s") {
+            playerY = Math.min(canvas.height - playerHeight, playerY + speed);
+        }
+        if (event.key === "ArrowLeft" || event.key === "a") {
+            playerX = Math.max(0, playerX - speed);
+        }
+        if (event.key === "ArrowRight" || event.key === "d") {
+            playerX = Math.min(canvas.width - playerWidth, playerX + speed);
+        }
+    });
 });
 
