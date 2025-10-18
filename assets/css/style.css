@@ -94,8 +94,7 @@ body {
     line-height: 1.5;
 }
 
-
-/* Game Area */
+/* Game Area Wrapper */
 .game-wrapper {
     display: flex;
     flex-direction: column;
@@ -103,21 +102,22 @@ body {
     justify-content: center;
 }
 
+/* Updated Game Area (larger) */
 .game-area {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     box-sizing: border-box;
-    width: 90vw;
-    max-width: 830px;
-    height: 70vh;
-    max-height: 500px;
+    width: 80vw;
+    max-width: 770px;
+    height: 95vh;
+    max-height: 1000px;
 
     padding: 3%;
     margin-bottom: 20px;
 
-    border: 4px solid #333;
+    border: 5px solid #333;
     border-radius: 10px;
     background-color: #1a1a1a;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -129,10 +129,10 @@ body {
 
 /* Canvas inside game area */
 canvas#canvas {
-    width: 100%;
+    width: 93%;
     height: 100%;
     display: block;
-    border: 2px solid #fff;
+    border: 2.5px solid #fff;
     background: url("../images/background.jpg");
     background-size: cover;
     background-position: center;
@@ -140,24 +140,26 @@ canvas#canvas {
     box-sizing: border-box;
 }
 
-/* Score Area */
+/* Updated Score Area - under game, left/right aligned */
 .score-area {
-    width: 85%;
-    max-width: 830px;
-    margin: 10px auto 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 85vw;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    padding: 0 20px;
     font-size: 2rem;
-    font-weight: 900;
+    font-weight: bold;
     color: #eee;
     user-select: none;
 }
 
-#score {
+.score-area .score span {
     color: rgb(245, 17, 17);
 }
 
-#health {
+.score-area .health span {
     color: pink;
 }
 
@@ -221,11 +223,13 @@ footer {
     }
 
     .game-area {
-        width: 80vw;
-        height: 60vh;
+        width: 85vw;
+        height: 65vh;
     }
 
     .score-area {
-        width: 100%;
+        width: 90vw;
+        padding: 0 15px;
+        font-size: 1.8rem;
     }
 }

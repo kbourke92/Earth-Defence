@@ -28,17 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let gameRunning = false;
 
     /* Default sizes based on a full-screen canvas */
-    let playerWidth = 33;
-    let playerHeight = 33;
+    let playerWidth = 40;
+    let playerHeight = 40;
     let bulletWidth = 7;
     let bulletHeight = 9;
-    let enemyWidth = 33;
-    let enemyHeight = 33;
-    let healthkitWidth = 33;
-    let healthkitHeight = 33;
+    let enemyWidth = 45;
+    let enemyHeight = 45;
+    let healthkitWidth = 45;
+    let healthkitHeight = 45;
 
-    let playerSpeed = 10;
-    const bulletSpeed = 10;
+    let playerSpeed = 12;
+    const bulletSpeed = 11;
 
     const playerImg = new Image();
     playerImg.src = "assets/images/spaceship.png";
