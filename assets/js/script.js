@@ -54,24 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerX = canvas.width / 2;
     let playerY = canvas.height - 100;
 
-    /* Touch Screen */
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    canvas.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const touchX = touch.pageX;
-
-        if (touchX < canvas.width / 2) {
-            playerX -= playerSpeed;
-        } else {
-            playerX += playerSpeed;
-        }
-
-        playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
-    });
-
     /* Player class */
     class Player {
         constructor(width, height) {
@@ -281,17 +263,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     restartButton.addEventListener("click", restartGame);
 
-    /* Update canvas size and player position on resize */
-    window.addEventListener("resize", () => {
-        setCanvasSize();
-        initPlayerPosition();
-    });
-
     /* Initial state */
     landingContainer.style.display = "flex";
     gameArea.style.display = "none";
     scoreArea.style.display = "none";
     if (footer) footer.style
-
 });
 
