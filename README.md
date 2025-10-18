@@ -72,7 +72,7 @@ These are the additional resources I used to create this project
 - The healthkit image was provided by [Health Kit](https://www.pngwing.com/en/free-png-bpufm)
 
 ### Content
-The inspiration for this project came from the following [Javascript Project](https://www.youtube.com/watch?v=7LThUC81_Ow&list=PLj45wIw9J1OTikOakEXpNwL06Npfj59iS&index=11)
+The inspiration for this project and instruction on how to generate the aliens came from the following [Javascript Project](https://www.youtube.com/watch?v=7LThUC81_Ow&list=PLj45wIw9J1OTikOakEXpNwL06Npfj59iS&index=11)
 
 
 
