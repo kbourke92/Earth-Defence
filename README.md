@@ -10,7 +10,7 @@ Upon arrival you will be presented with the current situation, a reminder on how
 
 
 ### Game area
-This is your battlefield! Don't stop firing until your last breath. The aliens will keep coming along with lots of health kits. Due to the alien mist covering earth your health will keep falling. When your health reaches zero its game over. The aliens have won.
+This is your battlefield! Don't stop firing until your last breath. The aliens will keep coming along with lots of health kits. Due to the alien mist covering earth your health will keep falling when the aliens hit the bottom of the game screen. When your health reaches zero its game over. The aliens have won.
 
 <img width="550" height="400" alt="Game Screen" src="https://github.com/user-attachments/assets/a5852af2-9cec-4bb9-8f54-bd2df2a91261" />
 
