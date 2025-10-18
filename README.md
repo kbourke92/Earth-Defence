@@ -44,6 +44,11 @@ Upon death you will be shown your score and the option to revive and try again. 
    - Largest function has 60 statements in it, while the median is 3.
    - The most complex function has a cyclomatic complexity value of 10 while the median is 1.
 
+- Lighthouse Score
+
+  <img width="401" height="117" alt="image" src="https://github.com/user-attachments/assets/9a6bdb45-5baf-4123-814a-982ff2838755" />
+
+
 ## Deployment
 
 This is the process I went through to deploy this program via the hosting platform GitHub:
