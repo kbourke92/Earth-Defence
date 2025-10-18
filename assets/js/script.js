@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let healthkitWidth = 33;
     let healthkitHeight = 33;
 
-    let playerSpeed = 7;
+    let playerSpeed = 10;
     const bulletSpeed = 10;
 
     const playerImg = new Image();
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function startIntervals() {
-        enemyInterval = setInterval(spawnEnemies, 1000);
+        enemyInterval = setInterval(spawnEnemies, 900);
         healthkitInterval = setInterval(spawnHealthkits, 6500);
         shootInterval = setInterval(shoot, 150);
     }
