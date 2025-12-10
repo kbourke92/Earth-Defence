@@ -29,6 +29,17 @@ Upon death you will be shown your score and the option to revive and try again. 
 
 ## Testing
 
+### Bugs
+
+#### Resolved Bugs
+
+- During testing there was an issue where the health was dropping too slowly. This was caused by the health kit interval being too short while the enemy spawn interval was too long
+- In testing there was an issue where the score and health were not showing under the game screen. This was caused by them not being nested under the game screen.
+
+#### Ongoing Bugs
+
+- No ongoing bugs. 
+
 ### Validator Testing
 
 - HTML Testing
