@@ -33,9 +33,13 @@ Upon death you will be shown your score and the option to revive and try again. 
 
 - HTML Testing
   - No errors were returned when passing through the official [W3C Validator](https://validator.w3.org/).
+ 
+<img width="918" height="172" alt="Screenshot 2025-12-10 131721" src="https://github.com/user-attachments/assets/1e214c68-8f57-4800-8cd7-43fc6ddc5ec2" />
 
 - CSS Testing
   - No errors were returned when passing through the official [(Jigsaw) Validator](https://jigsaw.w3.org/css-validator/).
+
+<img width="904" height="61" alt="Screenshot 2025-12-10 131551" src="https://github.com/user-attachments/assets/48489525-317e-4670-b053-50409751c180" />
 
 - JS Testing
   - No errors were returned when passing through the official [JSHint Validator](https://jshint.com/).
@@ -43,6 +47,9 @@ Upon death you will be shown your score and the option to revive and try again. 
    - Function with the largest signature take 5 arguments, while the median is 0.
    - Largest function has 60 statements in it, while the median is 3.
    - The most complex function has a cyclomatic complexity value of 10 while the median is 1.
+ 
+<img width="255" height="168" alt="Screenshot 2025-12-10 131652" src="https://github.com/user-attachments/assets/d83a3d29-95b1-4460-9656-84ccaecfae1e" />
+
 
 - Lighthouse Score
 
